@@ -14,6 +14,7 @@ import Network.AMQP as AMQP
 import Data.Typeable
 import System.Posix.Signals
 
+
 data WBInfoMessage = WBSignalStop 
                    | WBSignalReload
     deriving Typeable
