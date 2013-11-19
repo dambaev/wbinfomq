@@ -96,10 +96,12 @@ instance HEP.Message AMQPMessage
 data AMQPAnswer = AMQPAnswerOK
 
 amqpProc = "AMQPMain"
+amqpSupervisorProc = "AMQPSupervisor"
 
 startAMQP:: HEP Pid
 startAMQP = do
-    spawn $! procRegister amqpProc $! procWithSupervisor (proc amqpSupervisor) $! 
+    spawn $! procRegister amqpProc $! 
+        procWithSupervisor (procRegister amqpSupervisorProc $! proc amqpSupervisor) $! 
         procWithBracket  amqpInit amqpShutdown $! proc amqpWorker
     
     
